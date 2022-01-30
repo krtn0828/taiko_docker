@@ -3,7 +3,7 @@ https://github.com/Disinterpreter/taiko-web-docker
 
 # Summary
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Disinterpreter/taiko-web-docker/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kitson618/taiko_docker/tree/master)
 
 Docker container for easily deploying a web-version of the Namco game **Taiko no Tatsujin** (taiko-web)
 
