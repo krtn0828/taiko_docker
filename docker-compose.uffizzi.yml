@@ -1,1 +1,39 @@
-
+x-uffizzi:
+  ingress:                   # required
+    service: taiko-web-server  # the service that should receive https traffic
+    port: 80      # the port this service listens on
+  continuous_previews:
+    deploy_preview_when_pull_request_is_opened: true
+    delete_preview_when_pull_request_is_closed: true
+    share_to_github: true
+services:  
+  taiko-web-server:
+    build: .
+    container_name: taiko-server
+    environment:
+      PORT: 80
+    volumes:
+      - './db/taiko.db:/srv/taiko-web/taiko.db'
+      - './songs:/srv/taiko-web/public/songs'
+      - './etc/config.json:/srv/taiko-web/config.json'
+  mongo:
+    restart: always
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+  mongo-express:
+    restart: always
+    image: mongo-express
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: user
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_REQUEST_SIZE: '1024m'
+      ME_CONFIG_SITE_BASEURL: '/'
+      ME_CONFIG_SITE_COOKIESECRET: secret1
+      ME_CONFIG_SITE_SESSIONSECRET: secret2
+  redis:
+    restart: always
+    image: redis:alpine
